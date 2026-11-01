@@ -1,0 +1,15 @@
+﻿@model PAP.Mvc.Models.RowActions
+
+<td class="text-end text-nowrap">
+    <button type="button" class="btn btn-sm btn-outline-secondary" data-crud-action="details" data-entity="@Model.EntityJson">Detalle</button>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-crud-action="edit" data-entity="@Model.EntityJson">Editar</button>
+    @using (Html.BeginForm("Delete", Model.Controller, FormMethod.Post, new { @class = "d-inline", onsubmit = "return confirm('¿Desea eliminar este registro?');" }))
+    {
+        @Html.AntiForgeryToken()
+        foreach (var value in Model.DeleteValues)
+        {
+            <input type="hidden" name="@value.Key" value="@value.Value" />
+        }
+        <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
+    }
+</td>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7C3A9E21-5B4D-4F8A-9E61-2D0B8C47A913}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PAP.Generators</RootNamespace>
+    <AssemblyName>PAP.Generators</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.5.2\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.5.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Core\GenerationResult.cs" />
+    <Compile Include="Core\GeneratorBase.cs" />
+    <Compile Include="Core\GeneratorCatalog.cs" />
+    <Compile Include="Core\GeneratorStatus.cs" />
+    <Compile Include="Core\IDataGenerator.cs" />
+    <Compile Include="Core\SampleData.cs" />
+    <Compile Include="Core\Tables.cs" />
+    <Compile Include="GeneratorService.cs" />
+    <Compile Include="Generators\AddressesGenerator.cs" />
+    <Compile Include="Generators\AuthorsGenerator.cs" />
+    <Compile Include="Generators\BookAuthorsGenerator.cs" />
+    <Compile Include="Generators\BooksGenerator.cs" />
+    <Compile Include="Generators\CartItemsGenerator.cs" />
+    <Compile Include="Generators\CategoriesGenerator.cs" />
+    <Compile Include="Generators\CustomersGenerator.cs" />
+    <Compile Include="Generators\EmployeesGenerator.cs" />
+    <Compile Include="Generators\GenresGenerator.cs" />
+    <Compile Include="Generators\InventoryGenerator.cs" />
+    <Compile Include="Generators\OrderItemsGenerator.cs" />
+    <Compile Include="Generators\OrdersGenerator.cs" />
+    <Compile Include="Generators\PaymentsGenerator.cs" />
+    <Compile Include="Generators\PublishersGenerator.cs" />
+    <Compile Include="Generators\PurchaseOrderItemsGenerator.cs" />
+    <Compile Include="Generators\PurchaseOrdersGenerator.cs" />
+    <Compile Include="Generators\ReviewsGenerator.cs" />
+    <Compile Include="Generators\RolesGenerator.cs" />
+    <Compile Include="Generators\ShoppingCartsGenerator.cs" />
+    <Compile Include="Generators\SuppliersGenerator.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PAP.Business\PAP.Business.csproj">
+      <Project>{033e721b-af6d-4153-9f9c-ca71591bf947}</Project>
+      <Name>PAP.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PAP.DataAccess\PAP.DataAccess.csproj">
+      <Project>{b9b34359-9d35-4cb6-b78a-4534016230e5}</Project>
+      <Name>PAP.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PAP.Repositories\PAP.Repositories.csproj">
+      <Project>{2cfe9167-0530-473e-b3e6-749be28634fc}</Project>
+      <Name>PAP.Repositories</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

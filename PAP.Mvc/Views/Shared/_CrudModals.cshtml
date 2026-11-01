@@ -1,0 +1,77 @@
+﻿@model PAP.Mvc.Models.CrudPage
+
+<style>
+    .modal-content {
+        background-color: #171b24;
+        color: #e8ecf4;
+        border: 1px solid #3a4458;
+    }
+
+    .modal-header, .modal-footer {
+        border-color: #2a3242;
+    }
+
+    .modal-content dt {
+        color: #9aa3b5;
+    }
+
+    .modal-content dd, .modal-content .form-label, .modal-content .form-check-label {
+        color: #e8ecf4;
+    }
+
+    .modal-content .btn-close {
+        filter: invert(1) grayscale(100%) brightness(200%);
+    }
+</style>
+
+<div id="crud-page" hidden
+     data-fields="@Model.FieldsJson"
+     data-lookups="@Model.LookupsJson"
+     data-singular="@Model.Singular"></div>
+
+@* Modal para agregar y editar: el mismo formulario sirve para ambos *@
+<div class="modal fade" id="crud-form-modal" tabindex="-1" aria-labelledby="crud-form-title" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            @using (Html.BeginForm("Save", Model.Controller, FormMethod.Post, new { id = "crud-form" }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="modal-header">
+                    <h2 class="modal-title h5" id="crud-form-title">@Model.Singular</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    @foreach (var field in Model.Fields)
+                    {
+                        if (field.ShowInForm)
+                        {
+                            @Html.Partial("_FormField", field)
+                        }
+                    }
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@* Modal de detalle: muestra todos los campos del registro *@
+<div class="modal fade" id="crud-details-modal" tabindex="-1" aria-labelledby="crud-details-title" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title h5" id="crud-details-title">Detalle</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+                <dl class="row mb-0" id="crud-details-body"></dl>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>

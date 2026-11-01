@@ -1,0 +1,47 @@
+﻿@using PAP.Mvc.Infrastructure
+@model PAP.Mvc.Models.CrudPageModel<PAP.DataAccess.CartItem>
+
+@{
+    ViewBag.Title = Model.Title;
+}
+
+<main>
+    @Html.Partial("_CrudHeader", Model)
+
+    @if (Model.Items.Any())
+    {
+        <div class="table-responsive">
+            <table class="table table-striped table-hover align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Carrito</th>
+                        <th scope="col">Libro</th>
+                        <th scope="col" class="text-end">Cantidad</th>
+                        <th scope="col">Agregado</th>
+                        <th scope="col" class="text-end">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Items)
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td>@Model.LookupText("CartId", item.CartId)</td>
+                            <td>@Model.LookupText("BookId", item.BookId)</td>
+                            <td class="text-end">@item.Quantity</td>
+                            <td>@Display.DateAndTime(item.AddedAt)</td>
+                            @Html.Partial("_RowActions", Model.ActionsFor(item, item.Id))
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        @Html.Partial("_EmptyState", Model)
+    }
+
+    @Html.Partial("_CrudModals", Model)
+</main>

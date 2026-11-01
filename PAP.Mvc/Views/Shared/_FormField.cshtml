@@ -1,0 +1,50 @@
+﻿@using PAP.Mvc.Models
+@model FormField
+
+@{
+    var inputId = "field-" + Model.Name;
+    var required = Model.Required ? "required" : null;
+}
+
+@switch (Model.Kind)
+{
+    case FieldKind.Hidden:
+        <input type="hidden" name="@Model.Name" data-field="@Model.Name" />
+        break;
+
+    case FieldKind.Checkbox:
+        <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" id="@inputId" name="@Model.Name" value="true" data-field="@Model.Name" />
+            <input type="hidden" name="@Model.Name" value="false" />
+            <label class="form-check-label" for="@inputId">@Model.Label</label>
+        </div>
+        break;
+
+    case FieldKind.Select:
+        <div class="mb-3">
+            <label class="form-label" for="@inputId">@Model.Label</label>
+            <select class="form-select" id="@inputId" name="@Model.Name" data-field="@Model.Name" required="@required">
+                <option value="">— Seleccione —</option>
+                @foreach (var option in Model.Options)
+                {
+                    <option value="@option.Value">@option.Text</option>
+                }
+            </select>
+        </div>
+        break;
+
+    case FieldKind.TextArea:
+        <div class="mb-3">
+            <label class="form-label" for="@inputId">@Model.Label</label>
+            <textarea class="form-control" id="@inputId" name="@Model.Name" rows="3" data-field="@Model.Name" maxlength="@Model.MaxLength" required="@required"></textarea>
+        </div>
+        break;
+
+    default:
+        <div class="mb-3">
+            <label class="form-label" for="@inputId">@Model.Label</label>
+            <input class="form-control" id="@inputId" type="@Model.InputType" name="@Model.Name" data-field="@Model.Name"
+                   step="@Model.Step" maxlength="@Model.MaxLength" placeholder="@Model.Placeholder" required="@required" />
+        </div>
+        break;
+}
